@@ -1,1 +1,1 @@
-include ':app', ':x264'
+include ':app', 'ffmpeg', ':x264'
