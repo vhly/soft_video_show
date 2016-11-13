@@ -28,6 +28,8 @@
 #include "common/common.h"
 #include "macroblock.h"
 #include "me.h"
+#include "analyse.h"
+#include "ratecontrol.h"
 
 // Indexed by pic_struct values
 static const uint8_t delta_tfi_divisor[10] = { 0, 2, 1, 1, 2, 2, 3, 3, 4, 6 };
