@@ -1,1 +1,1 @@
-include ':app', ':librtmp', ':x264'
+include ':app', ':x264'
