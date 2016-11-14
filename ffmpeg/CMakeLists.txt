@@ -64,6 +64,12 @@ add_library (
         src/main/cpp/libavutil/fixed_dsp.c
         src/main/cpp/libavutil/audio_fifo.c
         src/main/cpp/libavutil/fifo.c
+
+        # for codec
+        src/main/cpp/libavutil/display.c
+        src/main/cpp/libavutil/mastering_display_metadata.c
+        src/main/cpp/libavutil/stereo3d.c
+
 )
 
 
@@ -121,6 +127,132 @@ add_library (
         # src/main/cpp/libavcodec/dct32_template.c
         src/main/cpp/libavcodec/dctref.c
         src/main/cpp/libavcodec/mpeg4audio.c
+
+        # for swr
+        src/main/cpp/libavcodec/sbrdsp_fixed.c
+        # src/main/cpp/libavcodec/sbrdsp_template.c
+        src/main/cpp/libavcodec/sbrdsp.c
+        src/main/cpp/libavcodec/parser.c
+        src/main/cpp/libavcodec/vorbis_data.c
+        src/main/cpp/libavcodec/vorbis_parser.c
+        src/main/cpp/libavcodec/vorbis.c
+        src/main/cpp/libavcodec/vorbisdec.c
+        src/main/cpp/libavcodec/vorbisdsp.c
+        src/main/cpp/libavcodec/vorbisenc.c
+        src/main/cpp/libavcodec/aacps_fixed_tablegen.c
+        src/main/cpp/libavcodec/aacps_fixed.c
+        src/main/cpp/libavcodec/aacps_float.c
+        # src/main/cpp/libavcodec/aacps_tablegen_template.c
+        src/main/cpp/libavcodec/aacps_tablegen.c
+        src/main/cpp/libavcodec/aacps.c
+        src/main/cpp/libavcodec/aacpsdata.c
+        src/main/cpp/libavcodec/aacpsdsp_fixed.c
+        src/main/cpp/libavcodec/aacpsdsp_float.c
+        # src/main/cpp/libavcodec/aacpsdsp_template.c
+        src/main/cpp/libavcodec/aacpsy.c
+        src/main/cpp/libavcodec/xiph.c
+        src/main/cpp/libavcodec/aactab.c
+        src/main/cpp/libavcodec/psymodel.c
+        src/main/cpp/libavcodec/iirfilter.c
+        src/main/cpp/libavcodec/bitstream_filter.c
+        src/main/cpp/libavcodec/bitstream_filters.c
+        src/main/cpp/libavcodec/bitstream.c
+        src/main/cpp/libavcodec/bsf_list.c
+        src/main/cpp/libavcodec/bsf.c
+        src/main/cpp/libavcodec/aac_adtstoasc_bsf.c
+        src/main/cpp/libavcodec/aacadtsdec.c
+        src/main/cpp/libavcodec/aac_ac3_parser.c
+        src/main/cpp/libavcodec/aac_adtstoasc_bsf.c
+        src/main/cpp/libavcodec/chomp_bsf.c
+        src/main/cpp/libavcodec/dump_extradata_bsf.c
+        src/main/cpp/libavcodec/dca_core_bsf.c
+        src/main/cpp/libavcodec/h264_mp4toannexb_bsf.c
+        src/main/cpp/libavcodec/hevc_mp4toannexb_bsf.c
+        src/main/cpp/libavcodec/imx_dump_header_bsf.c
+        src/main/cpp/libavcodec/mjpeg2jpeg_bsf.c
+        src/main/cpp/libavcodec/mjpega_dump_header_bsf.c
+        src/main/cpp/libavcodec/mp3_header_decompress_bsf.c
+        src/main/cpp/libavcodec/mpeg4_unpack_bframes_bsf.c
+        src/main/cpp/libavcodec/movsub_bsf.c
+        src/main/cpp/libavcodec/noise_bsf.c
+        src/main/cpp/libavcodec/remove_extradata_bsf.c
+        src/main/cpp/libavcodec/vp9_superframe_bsf.c
+
+        # HEVC
+        src/main/cpp/libavcodec/hevc_cabac.c
+        src/main/cpp/libavcodec/hevc_data.c
+        src/main/cpp/libavcodec/hevc_filter.c
+        src/main/cpp/libavcodec/hevc_mvs.c
+        src/main/cpp/libavcodec/hevc_parse.c
+        src/main/cpp/libavcodec/hevc_parser.c
+        src/main/cpp/libavcodec/hevc_ps_enc.c
+        src/main/cpp/libavcodec/hevc_ps.c
+        src/main/cpp/libavcodec/hevc_refs.c
+        src/main/cpp/libavcodec/hevc_sei.c
+        src/main/cpp/libavcodec/hevc.c
+        src/main/cpp/libavcodec/profiles.c
+        # src/main/cpp/libavcodec/hpel_template.c
+        src/main/cpp/libavcodec/hpeldsp.c
+        src/main/cpp/libavcodec/fdctdsp.c
+
+        # src/main/cpp/libavcodec/bit_depth_template.c
+        # src/main/cpp/libavcodec/hevcdsp_template.c
+        src/main/cpp/libavcodec/hevcdsp.c
+        # src/main/cpp/libavcodec/hevcpred_template.c
+        src/main/cpp/libavcodec/hevcpred.c
+        src/main/cpp/libavcodec/bswapdsp.c
+        src/main/cpp/libavcodec/cabac.c
+        src/main/cpp/libavcodec/h2645_parse.c
+        src/main/cpp/libavcodec/videodsp_template.c
+        src/main/cpp/libavcodec/videodsp.c
+
+        # JPEG
+        src/main/cpp/libavcodec/jpegtables.c
+        src/main/cpp/libavcodec/mjpeg_parser.c
+        src/main/cpp/libavcodec/mjpegbdec.c
+        src/main/cpp/libavcodec/mjpegbdec.c
+        src/main/cpp/libavcodec/mjpegdec.c
+        src/main/cpp/libavcodec/mjpegenc_common.c
+        src/main/cpp/libavcodec/mjpegenc.c
+        src/main/cpp/libavcodec/golomb.c
+        src/main/cpp/libavcodec/blockdsp.c
+        src/main/cpp/libavcodec/error_resilience.c
+        src/main/cpp/libavcodec/idctdsp.c
+        src/main/cpp/libavcodec/faanidct.c
+        src/main/cpp/libavcodec/jpegls.c
+        src/main/cpp/libavcodec/jpeglsdec.c
+        src/main/cpp/libavcodec/jpeglsenc.c
+
+        # MPEG4
+        src/main/cpp/libavcodec/mpegaudiodecheader.c
+        src/main/cpp/libavcodec/mpegaudiodata.c
+        src/main/cpp/libavcodec/mpeg4video_parser.c
+        src/main/cpp/libavcodec/mpeg4video.c
+        src/main/cpp/libavcodec/mpeg4videodec.c
+        src/main/cpp/libavcodec/mpeg4videoenc.c
+        src/main/cpp/libavcodec/mpegvideo_enc.c
+        src/main/cpp/libavcodec/mpegvideo_motion.c
+        src/main/cpp/libavcodec/mpegvideo_parser.c
+        src/main/cpp/libavcodec/mpegvideo_xvmc.c
+        src/main/cpp/libavcodec/mpegvideo.c
+        src/main/cpp/libavcodec/mpegvideodata.c
+        src/main/cpp/libavcodec/mpegaudio.c
+        src/main/cpp/libavcodec/mpegutils.c
+
+        src/main/cpp/libavcodec/me_cmp.c
+
+        # H264
+        # src/main/cpp/libavcodec/h264chroma_template.c
+        src/main/cpp/libavcodec/h264chroma.c
+
+        # TIFF
+        src/main/cpp/libavcodec/tiff_common.c
+        src/main/cpp/libavcodec/tiff_data.c
+        src/main/cpp/libavcodec/tiff.c
+        src/main/cpp/libavcodec/tiffenc.c
+
+        # H263
+        src/main/cpp/libavcodec/h263dsp.c
 )
 
 add_library (
