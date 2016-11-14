@@ -69,6 +69,7 @@ add_library (
         src/main/cpp/libavutil/display.c
         src/main/cpp/libavutil/mastering_display_metadata.c
         src/main/cpp/libavutil/stereo3d.c
+        src/main/cpp/libavutil/timecode.c
 
 )
 
@@ -250,6 +251,12 @@ add_library (
         src/main/cpp/libavcodec/mpeg12.c
         src/main/cpp/libavcodec/mpeg12data.c
         src/main/cpp/libavcodec/mpeg12dec.c
+        src/main/cpp/libavcodec/vdpau_h264.c
+        src/main/cpp/libavcodec/vdpau_hevc.c
+        src/main/cpp/libavcodec/vdpau_mpeg4.c
+        src/main/cpp/libavcodec/vdpau_mpeg12.c
+        src/main/cpp/libavcodec/vdpau_vc1.c
+        src/main/cpp/libavcodec/vdpau.c
         src/main/cpp/libavcodec/mpeg12enc.c
         src/main/cpp/libavcodec/rl.c
         src/main/cpp/libavcodec/rl2.c
@@ -260,8 +267,20 @@ add_library (
         src/main/cpp/libavcodec/motion_est.c
         # src/main/cpp/libavcodec/qpel_template.c
         src/main/cpp/libavcodec/qpeldsp.c
-
         src/main/cpp/libavcodec/me_cmp.c
+        src/main/cpp/libavcodec/msmpeg4.c
+        src/main/cpp/libavcodec/msmpeg4data.c
+        src/main/cpp/libavcodec/msmpeg4dec.c
+        src/main/cpp/libavcodec/msmpeg4enc.c
+        src/main/cpp/libavcodec/wmv2.c
+        src/main/cpp/libavcodec/intrax8.c
+        src/main/cpp/libavcodec/intrax8dsp.c
+        src/main/cpp/libavcodec/wmv2data.c
+        src/main/cpp/libavcodec/wmv2dec.c
+        src/main/cpp/libavcodec/wmv2dsp.c
+        src/main/cpp/libavcodec/wmv2enc.c
+        src/main/cpp/libavcodec/flvdec.c
+        src/main/cpp/libavcodec/flvenc.c
 
         # H264
         # src/main/cpp/libavcodec/h264chroma_template.c
@@ -275,6 +294,18 @@ add_library (
 
         # H263
         src/main/cpp/libavcodec/h263dsp.c
+        src/main/cpp/libavcodec/h263.c
+        src/main/cpp/libavcodec/h263_parser.c
+        src/main/cpp/libavcodec/h263data.c
+        src/main/cpp/libavcodec/h263dec.c
+
+        # H261
+        src/main/cpp/libavcodec/h261_parser.c
+        src/main/cpp/libavcodec/h261.c
+        src/main/cpp/libavcodec/h261data.c
+        src/main/cpp/libavcodec/h261dec.c
+        src/main/cpp/libavcodec/h261enc.c
+
 )
 
 add_library (
