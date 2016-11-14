@@ -193,7 +193,9 @@ add_library (
         src/main/cpp/libavcodec/profiles.c
         # src/main/cpp/libavcodec/hpel_template.c
         src/main/cpp/libavcodec/hpeldsp.c
+        src/main/cpp/libavcodec/pel_template.c
         src/main/cpp/libavcodec/fdctdsp.c
+        src/main/cpp/libavcodec/faandct.c
 
         # src/main/cpp/libavcodec/bit_depth_template.c
         # src/main/cpp/libavcodec/hevcdsp_template.c
@@ -218,10 +220,14 @@ add_library (
         src/main/cpp/libavcodec/blockdsp.c
         src/main/cpp/libavcodec/error_resilience.c
         src/main/cpp/libavcodec/idctdsp.c
+        src/main/cpp/libavcodec/xvididct.c
+        # src/main/cpp/libavcodec/simple_idct_template.c
+        src/main/cpp/libavcodec/simple_idct.c
         src/main/cpp/libavcodec/faanidct.c
         src/main/cpp/libavcodec/jpegls.c
         src/main/cpp/libavcodec/jpeglsdec.c
         src/main/cpp/libavcodec/jpeglsenc.c
+        src/main/cpp/libavcodec/exif.c
 
         # MPEG4
         src/main/cpp/libavcodec/mpegaudiodecheader.c
@@ -235,9 +241,25 @@ add_library (
         src/main/cpp/libavcodec/mpegvideo_parser.c
         src/main/cpp/libavcodec/mpegvideo_xvmc.c
         src/main/cpp/libavcodec/mpegvideo.c
+        src/main/cpp/libavcodec/mpegpicture.c
+        src/main/cpp/libavcodec/mpegvideodsp.c
+        src/main/cpp/libavcodec/mpegvideoencdsp.c
         src/main/cpp/libavcodec/mpegvideodata.c
+        src/main/cpp/libavcodec/pixblockdsp.c
+        src/main/cpp/libavcodec/ratecontrol.c
+        src/main/cpp/libavcodec/mpeg12.c
+        src/main/cpp/libavcodec/mpeg12data.c
+        src/main/cpp/libavcodec/mpeg12dec.c
+        src/main/cpp/libavcodec/mpeg12enc.c
+        src/main/cpp/libavcodec/rl.c
+        src/main/cpp/libavcodec/rl2.c
+        src/main/cpp/libavcodec/rle.c
         src/main/cpp/libavcodec/mpegaudio.c
         src/main/cpp/libavcodec/mpegutils.c
+        # src/main/cpp/libavcodec/motion_est_template.c
+        src/main/cpp/libavcodec/motion_est.c
+        # src/main/cpp/libavcodec/qpel_template.c
+        src/main/cpp/libavcodec/qpeldsp.c
 
         src/main/cpp/libavcodec/me_cmp.c
 
