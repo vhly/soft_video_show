@@ -2,10 +2,128 @@ cmake_minimum_required(VERSION 3.4.1)
 
 include_directories( "src/main/cpp/" )
 
+# System architecture detection
+
+message(STATUS "Detected ${CMAKE_SYSTEM_PROCESSOR}")
+
+string(TOLOWER "${CMAKE_SYSTEM_PROCESSOR}" SYSPROC)
+set(X86_ALIASES x86 i386 i686 x86_64 amd64)
+set(ARM_ALIASES armv5te armv6l armv7l armv7-a aarch64 arm64-v8a arm64v8-a)
+set(MIPS_ALIASES mips mips64)
+
+list(FIND X86_ALIASES "${SYSPROC}" X86MATCH)
+list(FIND ARM_ALIASES "${SYSPROC}" ARMMATCH)
+list(FIND MIPS_ALIASES "${SYSPROC}" MIPSMATCH)
+
+set(AARCH64_SRC
+
+    src/main/cpp/libavutil/aarch64/cpu.c
+    src/main/cpp/libavutil/aarch64/float_dsp_init.c
+    src/main/cpp/libavutil/aarch64/float_dsp_neon.S
+)
+
+set(MIPS_SRC
+    src/main/cpp/libavutil/mips/float_dsp_mips.c
+)
+
+set(X86_SRC
+    src/main/cpp/libavutil/x86/float_dsp_init.c
+    src/main/cpp/libavutil/x86/float_dsp.asm
+    src/main/cpp/libavutil/x86/cpu.c
+    src/main/cpp/libavutil/x86/cpuid.asm
+    src/main/cpp/libavutil/x86/emms.asm
+    src/main/cpp/libavutil/x86/fixed_dsp.asm
+    src/main/cpp/libavutil/x86/fixed_dsp_init.c
+    src/main/cpp/libavutil/x86/lls_init.c
+    src/main/cpp/libavutil/x86/lls.asm
+    src/main/cpp/libavutil/x86/pixelutils.asm
+    src/main/cpp/libavutil/x86/pixelutils_init.c
+    src/main/cpp/libavutil/x86/x86inc.asm
+    src/main/cpp/libavutil/x86/x86util.asm
+)
+
+if("${SYSPROC}" STREQUAL "" OR X86MATCH GREATER "-1")
+    add_definitions(-DARCH_X86=1)
+    if("${CMAKE_SIZEOF_VOID_P}" MATCHES 8)
+        set(X86_64 1)
+        add_definitions(-DARCH_X86_64=1)
+        add_definitions(-DARCH_X86_32=0)
+        add_definitions(-DARCH_AARCH64=0)
+        add_definitions(-DARCH_ARM=0)
+        add_definitions(-DARCH_MIPS64=0)
+        add_definitions(-DARCH_MIPS=0)
+        add_definitions(-DHAVE_ARMV8=0)
+        message(STATUS "Detected x86_64 target processor")
+    else()
+        set(X86 1)
+        add_definitions(-DARCH_X86_32=1)
+        add_definitions(-DARCH_X86_64=0)
+        add_definitions(-DARCH_AARCH64=0)
+        add_definitions(-DARCH_ARM=0)
+        add_definitions(-DARCH_MIPS64=0)
+        add_definitions(-DARCH_MIPS=0)
+        add_definitions(-DHAVE_ARMV8=0)
+        message(STATUS "Detected x86 target processor")
+    endif()
+    set(ARCH_SRC_FILES ${X86_SRC})
+elseif(ARMMATCH GREATER "-1")
+    if("${CMAKE_SIZEOF_VOID_P}" MATCHES 8)
+        set(ARM64 1)
+        add_definitions(-DARCH_AARCH64=1)
+        add_definitions(-DHAVE_NEON=1)
+        add_definitions(-DHAVE_ARMV8=1)
+        add_definitions(-DHAVE_VFP=1)
+        add_definitions(-DARCH_X86_64=0)
+        add_definitions(-DARCH_X86_32=0)
+        add_definitions(-DARCH_X86=0)
+        add_definitions(-DARCH_ARM=0)
+        add_definitions(-DARCH_MIPS64=0)
+        add_definitions(-DARCH_MIPS=0)
+        set(ARCH_SRC_FILES ${AARCH64_SRC})
+        message(STATUS "Detected arm64 target processor")
+    else()
+        set(ARM 1)
+        add_definitions(-DARCH_ARM=1)
+        add_definitions(-DHAVE_ARMV8=0)
+        add_definitions(-DARCH_X86_64=0)
+        add_definitions(-DARCH_X86_32=0)
+        add_definitions(-DARCH_X86=0)
+        add_definitions(-DARCH_AARCH64=0)
+        add_definitions(-DARCH_MIPS64=0)
+        add_definitions(-DARCH_MIPS=0)
+        message(STATUS "Detected arm target processor")
+    endif()
+elseif(MIPSMATCH GREATER "-1")
+    if("${CMAKE_SIZEOF_VOID_P}" MATCHES 8)
+             set(MIPS64 1)
+             add_definitions(-DARCH_MIPS64=1)
+                          add_definitions(-DARCH_X86_64=0)
+                          add_definitions(-DARCH_X86_32=0)
+                          add_definitions(-DARCH_X86=0)
+                          add_definitions(-DARCH_ARM=0)
+                          add_definitions(-DARCH_AARCH64=0)
+                          add_definitions(-DARCH_MIPS=0)
+             message(STATUS "Detected mips64 target processor")
+    else()
+        set(MIPS 1)
+        add_definitions(-DARCH_MIPS=1)
+                     add_definitions(-DARCH_X86_64=0)
+                     add_definitions(-DARCH_X86_32=0)
+                     add_definitions(-DARCH_X86=0)
+                     add_definitions(-DARCH_ARM=0)
+                     add_definitions(-DARCH_AARCH64=0)
+                     add_definitions(-DARCH_MIPS64=0)
+        set(ARCH_SRC_FILES ${MIPS_SRC})
+        message(STATUS "Detected mips target processor")
+    endif()
+endif()
+
 add_library (
         avutil
 
         SHARED
+
+        ${ARCH_SRC_FILES}
 
         # for libavutil
         src/main/cpp/libavutil/dict.c
@@ -32,6 +150,8 @@ add_library (
         src/main/cpp/libavutil/sha512.c
         src/main/cpp/libavutil/reverse.c
         src/main/cpp/libavutil/time.c
+        src/main/cpp/libavutil/pixelutils.c
+        src/main/cpp/libavutil/lls.c
 
         src/main/cpp/libavutil/adler32.c
         src/main/cpp/libavutil/aes_ctr.c
@@ -82,6 +202,8 @@ find_library (
         math-lib
         m
 )
+
+message(STATUS "ARCH_NAME is ${ARCH_NAME}")
 
 target_link_libraries (
         avutil
