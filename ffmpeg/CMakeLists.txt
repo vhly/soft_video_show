@@ -17,9 +17,10 @@ list(FIND MIPS_ALIASES "${SYSPROC}" MIPSMATCH)
 
 set(AARCH64_SRC
 
+    src/main/cpp/libavutil/aarch64/asm.asm
     src/main/cpp/libavutil/aarch64/cpu.c
     src/main/cpp/libavutil/aarch64/float_dsp_init.c
-    src/main/cpp/libavutil/aarch64/float_dsp_neon.S
+    src/main/cpp/libavutil/aarch64/float_dsp_neon.asm
 )
 
 set(MIPS_SRC
@@ -70,7 +71,7 @@ elseif(ARMMATCH GREATER "-1")
     if("${CMAKE_SIZEOF_VOID_P}" MATCHES 8)
         set(ARM64 1)
         add_definitions(-DARCH_AARCH64=1)
-        add_definitions(-DHAVE_NEON=1)
+        add_definitions(-DHAVE_NEON=0)
         add_definitions(-DHAVE_ARMV8=1)
         add_definitions(-DHAVE_VFP=1)
         add_definitions(-DARCH_X86_64=0)
@@ -84,6 +85,7 @@ elseif(ARMMATCH GREATER "-1")
     else()
         set(ARM 1)
         add_definitions(-DARCH_ARM=1)
+        add_definitions(-DHAVE_NEON=0)
         add_definitions(-DHAVE_ARMV8=0)
         add_definitions(-DARCH_X86_64=0)
         add_definitions(-DARCH_X86_32=0)
