@@ -21,9 +21,9 @@ list(FIND MIPS_ALIASES "${SYSPROC}" MIPSMATCH)
 
 set(AARCH64_SRC
     src/main/cpp/libavutil/aarch64/asm.S
+    src/main/cpp/libavutil/aarch64/float_dsp_neon.S
     src/main/cpp/libavutil/aarch64/cpu.c
     src/main/cpp/libavutil/aarch64/float_dsp_init.c
-    src/main/cpp/libavutil/aarch64/float_dsp_neon.S
 )
 
 set(ARMV7A_SRC
@@ -38,7 +38,7 @@ set(ARMV7A_SRC
 
 set(ARM_SRC
     src/main/cpp/libavutil/arm/asm.S
-    # src/main/cpp/libavutil/arm/float_dsp_neon.S
+    src/main/cpp/libavutil/arm/float_dsp_neon.S
     src/main/cpp/libavutil/arm/cpu.c
     src/main/cpp/libavutil/arm/float_dsp_init_arm.c
 )
@@ -98,7 +98,7 @@ elseif(ARMMATCH GREATER "-1")
     if("${CMAKE_SIZEOF_VOID_P}" MATCHES 8)
         set(ARM64 1)
         add_definitions(-DARCH_AARCH64=1)
-        add_definitions(-DHAVE_NEON=1)
+        add_definitions(-DHAVE_NEON=0)
         add_definitions(-DHAVE_VFP=1)
         add_definitions(-DHAVE_VFPV3=1)
         add_definitions(-DHAVE_ARMV8=1)
@@ -110,41 +110,46 @@ elseif(ARMMATCH GREATER "-1")
         add_definitions(-DHAVE_ARMV8=0)
         add_definitions(-DARCH_AARCH64=0)
 
+
         if(ARMV7A_MATCH GREATER "-1")
-            add_definitions(-DHAVE_NEON=1)
-            add_definitions(-DHAVE_VFP=1)
-            add_definitions(-DHAVE_VFPV3=1)
-            set(ARCH_SRC_FILES ${ARMV7A_SRC})
+            add_definitions(-DHAVE_NEON=0)
+            add_definitions(-DHAVE_VFP=0)
+            add_definitions(-DHAVE_VFPV3=0)
+            add_definitions(-DARCH_ARM=1)
+            set(ARCH_SRC_FILES ${ARM_SRC})
             message(STATUS "Detected armv7a target processor")
         else()
             add_definitions(-DHAVE_NEON=0)
             add_definitions(-DHAVE_VFP=0)
             add_definitions(-DHAVE_VFPV3=0)
-            set(ARCH_SRC_FILES ${ARM_SRC})
+            # In old armeabi , disable asm
+            add_definitions(-DARCH_ARM=0)
+            add_definitions(-mthumb)
+            # set(ARCH_SRC_FILES ${ARM_SRC})
             message(STATUS "Detected armveabi target processor")
         endif()
     endif()
 
 elseif(MIPSMATCH GREATER "-1")
     if("${CMAKE_SIZEOF_VOID_P}" MATCHES 8)
-             set(MIPS64 1)
-             add_definitions(-DARCH_MIPS64=1)
-             add_definitions(-DARCH_X86_64=0)
-             add_definitions(-DARCH_X86_32=0)
-             add_definitions(-DARCH_X86=0)
-             add_definitions(-DARCH_ARM=0)
-             add_definitions(-DARCH_AARCH64=0)
-             add_definitions(-DARCH_MIPS=0)
-             message(STATUS "Detected mips64 target processor")
+        set(MIPS64 1)
+        add_definitions(-DARCH_MIPS64=1)
+        add_definitions(-DARCH_X86_64=0)
+        add_definitions(-DARCH_X86_32=0)
+        add_definitions(-DARCH_X86=0)
+        add_definitions(-DARCH_ARM=0)
+        add_definitions(-DARCH_AARCH64=0)
+        add_definitions(-DARCH_MIPS=0)
+        message(STATUS "Detected mips64 target processor")
     else()
         set(MIPS 1)
         add_definitions(-DARCH_MIPS=1)
-                     add_definitions(-DARCH_X86_64=0)
-                     add_definitions(-DARCH_X86_32=0)
-                     add_definitions(-DARCH_X86=0)
-                     add_definitions(-DARCH_ARM=0)
-                     add_definitions(-DARCH_AARCH64=0)
-                     add_definitions(-DARCH_MIPS64=0)
+        add_definitions(-DARCH_X86_64=0)
+        add_definitions(-DARCH_X86_32=0)
+        add_definitions(-DARCH_X86=0)
+        add_definitions(-DARCH_ARM=0)
+        add_definitions(-DARCH_AARCH64=0)
+        add_definitions(-DARCH_MIPS64=0)
         set(ARCH_SRC_FILES ${MIPS_SRC})
         message(STATUS "Detected mips target processor")
     endif()
