@@ -228,6 +228,10 @@ add_library (
         src/main/cpp/libavutil/stereo3d.c
         src/main/cpp/libavutil/timecode.c
 
+        # for file
+        src/main/cpp/libavutil/file_open.c
+        src/main/cpp/libavutil/file.c
+
 )
 
 find_library (
