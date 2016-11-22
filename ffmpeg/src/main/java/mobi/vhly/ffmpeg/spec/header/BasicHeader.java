@@ -1,4 +1,4 @@
-package mobi.vhly.librtmp.spec.header;
+package mobi.vhly.ffmpeg.spec.header;
 
 /**
  * Created by vhly[FR].

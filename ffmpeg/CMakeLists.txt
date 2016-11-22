@@ -232,6 +232,8 @@ add_library (
         src/main/cpp/libavutil/file_open.c
         src/main/cpp/libavutil/file.c
 
+        # for test
+        src/androidTest/cpp/libavutil/md5test.c
 )
 
 find_library (

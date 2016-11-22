@@ -1,4 +1,4 @@
-package mobi.vhly.librtmp;
+package mobi.vhly.ffmpeg;
 
 import org.junit.Test;
 

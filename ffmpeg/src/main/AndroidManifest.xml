@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="mobi.vhly.librtmp"
+          package="mobi.vhly.ffmpeg"
     >
 
     <uses-permission android:name="android.permission.INTERNET"/>

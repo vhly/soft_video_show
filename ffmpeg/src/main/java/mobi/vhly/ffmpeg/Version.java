@@ -1,4 +1,4 @@
-package mobi.vhly.librtmp.spec;
+package mobi.vhly.ffmpeg;
 
 /**
  * Created by vhly[FR].
@@ -8,6 +8,5 @@ package mobi.vhly.librtmp.spec;
  * Date: 16/10/8
  */
 
-public class Chunk {
-
+public class Version {
 }
