@@ -21,7 +21,7 @@ add_library( # Sets the name of the library.
      # Associated headers in the same location as their source
      # file are automatically included.
      src/main/cpp/mobi_vhly_demo01_MainActivity.c
-     src/main/cpp/mobi_vhly_demo01_X264Encoder.c
+     src/main/cpp/mobi_vhly_x264_X264Encoder.c
      src/main/cpp/x264/common/bitstream.c
      src/main/cpp/x264/common/cabac.c
      src/main/cpp/x264/common/common.c
@@ -94,6 +94,13 @@ find_library( # Sets the name of the path variable.
       # you want CMake to locate.
       log )
 
+find_library( # Sets the name of the path variable.
+      math-lib
+
+      # Specifies the name of the NDK library that
+      # you want CMake to locate.
+      m )
+
 # Specifies libraries CMake should link to your target library. You
 # can link multiple libraries, such as libraries you define in the
 # build script, prebuilt third-party libraries, or system libraries.
@@ -103,4 +110,6 @@ target_link_libraries( # Specifies the target library.
 
            # Links the target library to the log library
            # included in the NDK.
-           ${log-lib} )
+           ${log-lib}
+           ${math-lib}
+           )

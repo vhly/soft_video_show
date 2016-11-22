@@ -17,7 +17,7 @@ public final class X264Encoder {
     public native static void destroyEncoder();
 
     static {
-        System.loadLibrary("native-lib");
+        System.loadLibrary("x264");
     }
 
 }
