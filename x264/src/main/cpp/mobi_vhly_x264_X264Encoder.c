@@ -29,6 +29,7 @@ static jboolean bDestroy = JNI_TRUE;
  * Class:     mobi_vhly_demo01_X264Encoder
  * Method:    encodePreview
  * Signature: ([BII)[B
+ * 本方法用于进行视频预览部分的压缩编码，每一个预览图像都是直接从摄像头获取的 YUV 格式的图片，有专门的字节数组存放；
  */
 JNIEXPORT jbyteArray JNICALL
 Java_mobi_vhly_x264_X264Encoder_encodePreview
@@ -58,12 +59,12 @@ Java_mobi_vhly_x264_X264Encoder_encodePreview
             // bitrate
             param->rc.i_bitrate = 8 * 1024 * 1024;
             param->i_fps_den = 1;
-            param->i_fps_num = 30;
+            param->i_fps_num = 15;
 
             param->b_vfr_input = 1; // base time
 
             // 流选项
-            param->i_bframe = 6; // IBPBPBPBPBP
+            param->i_bframe = 4; // IBPBPBPBPBP
             param->b_open_gop = 0;
             param->i_bframe_pyramid = 0;
             param->i_bframe_adaptive = X264_B_ADAPT_FAST;
@@ -130,6 +131,7 @@ Java_mobi_vhly_x264_X264Encoder_encodePreview
 JNIEXPORT jboolean JNICALL
 Java_mobi_vhly_x264_X264Encoder_initEncoder(JNIEnv *env, jclass type, jstring fileName_) {
     jboolean ret = JNI_FALSE;
+    // 获取输出的文件绝对路径
     const char *fileName = (*env)->GetStringUTFChars(env, fileName_, 0);
     if (bDestroy) {
 
@@ -138,7 +140,7 @@ Java_mobi_vhly_x264_X264Encoder_initEncoder(JNIEnv *env, jclass type, jstring fi
             x264 = NULL;
         }
 
-        // TODO
+        // 打开一个文件，进行输出，file 是静态变量，需要在使用完成后进行关闭
         file = fopen(fileName, "wb");
         bDestroy = JNI_FALSE;
     }

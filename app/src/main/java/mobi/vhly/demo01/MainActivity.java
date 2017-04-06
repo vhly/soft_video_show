@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity
                     int height = surfaceFrame.height();
                     // 视频录制时的持续对焦
                     parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
-                    parameters.setPreviewSize(width, height);
+//                    parameters.setPreviewSize(width, height);
 
                     mCamera.setParameters(parameters);
 
@@ -145,10 +145,10 @@ public class MainActivity extends AppCompatActivity
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         mPrevHeight = height;
         mPrevWidth = width;
-        if (mCamera != null) {
-            Camera.Parameters parameters = mCamera.getParameters();
-            parameters.setPreviewSize(mPrevWidth, mPrevHeight);
-            mCamera.setParameters(parameters);
+        if (mCamera != null && width > 0 && height > 0) {
+//            Camera.Parameters parameters = mCamera.getParameters();
+//            parameters.setPreviewSize(mPrevWidth, mPrevHeight);
+//            mCamera.setParameters(parameters);
         }
     }
 

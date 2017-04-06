@@ -1,0 +1,3 @@
+[submodule "rtmp"]
+	path = librtmp/src/main/cpp/rtmpdump
+	url = git://git.ffmpeg.org/rtmpdump
