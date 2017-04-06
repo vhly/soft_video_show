@@ -102,14 +102,12 @@ Java_mobi_vhly_x264_X264Encoder_encodePreview
         YYYY
         UVUV
          */
-        jbyte *y = pIn->img.plane[0];
-        jbyte *v = pIn->img.plane[1];
-        jbyte *u = pIn->img.plane[2];
+//        jbyte *y = pIn->img.plane[0];
+//        jbyte *v = pIn->img.plane[1];
+//        jbyte *u = pIn->img.plane[2];
         memcpy(pIn->img.plane[0], buf, nPicSize);
-        for (ic = 0; ic < nPicSize / 4; ic++) {
-            *(u + ic) = *(buf + nPicSize + ic * 2);
-            *(v + ic) = *(buf + nPicSize + ic * 2 + 1);
-        }
+        memcpy(pIn->img.plane[1], buf + nPicSize, nPicSize / 4);
+        memcpy(pIn->img.plane[2], buf + nPicSize + nPicSize / 4, nPicSize / 4);
 
         int frames = x264_encoder_encode(x264, &pNal, &piNal, pIn, pOut);
         if (frames > 0) {
@@ -123,6 +121,36 @@ Java_mobi_vhly_x264_X264Encoder_encodePreview
                 }
             }
         }
+    }else{
+        int i = 0, j;
+        int cret = 0;
+        //flush encoder
+        while (1) {
+            cret = x264_encoder_encode(x264, &pNal, &piNal, NULL, pOut);
+            if (cret == 0) {
+                break;
+            }
+            if(file == NULL){
+                break;
+            }
+            printf("Flush 1 frame.\n");
+            for (j = 0; j < piNal; ++j) {
+                fwrite(pNal[j].p_payload, 1, pNal[j].i_payload, file);
+            }
+            i++;
+        }
+
+        if(file != NULL){
+            fclose(file);
+            file = NULL;
+        }
+
+        x264_encoder_close(x264);
+        x264 = NULL;
+        x264_picture_clean(pIn);
+
+        free(pIn);
+        free(pOut);
     }
     return ret;
 }
@@ -153,18 +181,7 @@ Java_mobi_vhly_x264_X264Encoder_destroyEncoder(JNIEnv *env, jclass type) {
 
     // TODO
     if (!bDestroy) {
-        if (file != NULL) {
-            fclose(file);
-            file = NULL;
-        }
-
         bDestroy = JNI_TRUE;
-
-//        if (x264 != NULL) {
-//            x264_encoder_close(x264);
-//            x264 = NULL;
-//        }
-
     }
 }
 
