@@ -1,3 +1,6 @@
 [submodule "rtmp"]
 	path = librtmp/src/main/cpp/rtmpdump
 	url = git://git.ffmpeg.org/rtmpdump
+[submodule "librtmp/src/main/cpp/polarssl"]
+	path = librtmp/src/main/cpp/polarssl
+	url = git@github.com:ARMmbed/mbedtls.git
