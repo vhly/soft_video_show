@@ -5,6 +5,9 @@ import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
 import android.graphics.Rect;
 import android.hardware.Camera;
+import android.media.CamcorderProfile;
+import android.media.CameraProfile;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -89,14 +92,19 @@ public class MainActivity extends AppCompatActivity
                     for (int[] ints : list) {
                         System.out.println("ints = " + Arrays.toString(ints));
                     }
-                    parameters.setPreviewFpsRange(30000, 30000);
-//                    parameters.setPreviewFrameRate(30);
+
+                    Rect surfaceFrame = holder.getSurfaceFrame();
+                    int width = surfaceFrame.width();
+                    int height = surfaceFrame.height();
+                    // 视频录制时的持续对焦
+                    parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+                    parameters.setPreviewSize(width, height);
+
                     mCamera.setParameters(parameters);
 
                     mCamera.setDisplayOrientation(90);
-                    Rect surfaceFrame = holder.getSurfaceFrame();
                     if (mPrevBuf == null) {
-                        mPrevBuf = new byte[surfaceFrame.width() * surfaceFrame.height() * 3 / 2];
+                        mPrevBuf = new byte[width * height * 3 / 2];
                     }
                     mCamera.addCallbackBuffer(mPrevBuf);
                     mCamera.setPreviewCallbackWithBuffer(this);
@@ -140,6 +148,7 @@ public class MainActivity extends AppCompatActivity
         if (mCamera != null) {
             Camera.Parameters parameters = mCamera.getParameters();
             parameters.setPreviewSize(mPrevWidth, mPrevHeight);
+            mCamera.setParameters(parameters);
         }
     }
 
