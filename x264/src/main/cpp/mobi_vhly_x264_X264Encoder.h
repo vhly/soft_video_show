@@ -15,6 +15,16 @@ extern "C" {
 JNIEXPORT jbyteArray JNICALL Java_mobi_vhly_demo01_X264Encoder_encodePreview
   (JNIEnv *, jclass, jbyteArray, jint, jint);
 
+JNIEXPORT jboolean JNICALL
+Java_mobi_vhly_x264_X264Encoder_initEncoder(JNIEnv *env, jclass type, jstring fileName_);
+
+JNIEXPORT void JNICALL
+Java_mobi_vhly_x264_X264Encoder_destroyEncoder(JNIEnv *env, jclass type);
+
+JNIEXPORT jlong JNICALL
+Java_mobi_vhly_x264_X264Encoder_convertYuv2H264(JNIEnv *env, jclass type, jstring yuvFileName_,
+                                                jstring h264FileName_);
+
 #ifdef __cplusplus
 }
 #endif

@@ -16,6 +16,14 @@ public final class X264Encoder {
 
     public native static void destroyEncoder();
 
+    /**
+     * 文件转换方法，需要在子线程完成
+     * @param yuvFileName
+     * @param h264FileName
+     * @return
+     */
+    public native static long convertYuv2H264(String yuvFileName, String h264FileName);
+
     static {
         System.loadLibrary("x264");
     }
